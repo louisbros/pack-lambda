@@ -1,0 +1,29 @@
+{
+  "name": "pack-lambda",
+  "version": "0.0.1",
+  "description": "Leverages npm's pack cmd to create a lambda zip",
+  "main": "index.js",
+  "bin": {
+    "pack-lambda": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louisbros/pack-lambda.git"
+  },
+  "keywords": [
+    "npm",
+    "package",
+    "lambda",
+    "zip",
+    "tar"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/louisbros/pack-lambda/issues"
+  },
+  "homepage": "https://github.com/louisbros/pack-lambda#readme",
+  "dependencies": {
+    "tar-to-zip": "^1.3.4"
+  }
+}
