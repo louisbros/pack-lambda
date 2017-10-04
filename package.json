@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/louisbros/pack-lambda#readme",
   "dependencies": {
-    "tar-to-zip": "^1.3.4"
+    "minimist": "1.x.x",
+    "tar-to-zip": "1.x.x"
   }
 }
