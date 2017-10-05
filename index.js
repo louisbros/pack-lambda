@@ -37,7 +37,7 @@ pack.on('close', _ => {
         filter: ({ name }) => name.substr(0, PACKAGE_ROOT.length) === PACKAGE_ROOT,
         map: ({ name }) => {
             return {
-                name: Object.entries(mappings).reduce((mapped, [from, to]) => mapped.replace(from, to), name)
+                name: Object.keys(mappings).reduce((mapped, key) => mapped.replace(key, mappings[key]), name)
             };
         }
     })
