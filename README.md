@@ -32,18 +32,23 @@ package.json
 npm run build
 ```
 
-### Run with path mappings
-Moves any files inside the `build/` directories up to the root.
+### Options
+Moves any files inside the `build/` directory up to the root.
 ```
-npm run build -m build/:
+pack-lambda -m build/:
 ```
 
-Moves any files inside the `build/` into a `dist/` directory.
+Moves any files inside `build/` into a `dist/` directory.
 ```
-npm run build -m build/:dist/
+pack-lambda -m build/:dist/
 ```
 
 Multiple mappings.
 ```
-npm run build -m build/:dist/ -m conf/:config/
+pack-lambda -m build/:dist/ -m conf/:config/
+```
+
+Exclude version from output filename
+```
+pack-lambda --exclude-output-version
 ```

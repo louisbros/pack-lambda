@@ -20,6 +20,16 @@ const getMappings = argv => {
     }, DEFAULT_MAPPINGS);
 };
 
+const getOutputName = argv => {
+    const { npm_package_name, npm_package_version } = process.env;
+
+    return argv['exclude-output-version'] ?
+        `${npm_package_name}.zip` :
+        `${npm_package_name}-${npm_package_version}.zip`
+};
+
+getOutputName(argv);
+
 const mappings = getMappings(argv);
 
 const pack = spawn('npm', ['pack']);
@@ -28,7 +38,7 @@ pack.on('close', _ => {
     const { npm_package_name, npm_package_version } = process.env;
     const name = `${npm_package_name}-${npm_package_version}`;
     const tarName = `${name}.tgz`;
-    const zipName = `${name}.zip`;
+    const zipName = getOutputName(argv);
 
     const zip = fs.createWriteStream(zipName);
     const progress = true;
