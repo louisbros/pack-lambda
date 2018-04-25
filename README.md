@@ -1,6 +1,6 @@
 # pack-lambda
 
-## Leverages npm's pack cmd to create a lambda zip
+## Leverages npm's pack cmd to create a zip[ file that can be deployed to AWS Lambda
 
 ### Install
 ```
@@ -9,22 +9,34 @@ npm i --save-dev pack-lambda
 
 ### Setup
 
-package.json
+#### package.json
+
+Use `bundledDependencies` to include dependencies within the package.
+
 ```
 "scripts": {
-    "build": "pack-lambda"
+    "package": "pack-lambda -m build/: --exclude-output-version"
+}
+...
+"dependencies": {
+    "aws-sdk": "2.x.x",
+    "node-fetch": "2.x.x"
 }
 ...
 "bundledDependencies": [
-    "aws-sdk"
+    "node-fetch"
 ]
 ```
 
-.npmignore
+#### .npmignore
+
+Use the `.npmignore` file to define what should be packaged within the zip.
+
 ```
 *
-!node_modules/**
-!index.js
+!/node_modules/**
+!/build/**
+!/package.json
 ```
 
 ### Run
@@ -33,12 +45,12 @@ npm run build
 ```
 
 ### Options
-Moves any files inside the `build/` directory up to the root.
+Move any files inside the `build/` directory up to the root.
 ```
 pack-lambda -m build/:
 ```
 
-Moves any files inside `build/` into a `dist/` directory.
+Move any files inside `build/` into a `dist/` directory.
 ```
 pack-lambda -m build/:dist/
 ```
