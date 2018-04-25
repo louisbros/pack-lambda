@@ -1,6 +1,6 @@
 {
   "name": "pack-lambda",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Leverages npm's pack cmd to create a lambda zip",
   "main": "index.js",
   "bin": {
