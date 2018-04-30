@@ -20,12 +20,37 @@ const getMappings = argv => {
     }, DEFAULT_MAPPINGS);
 };
 
-const getName = (excludeVersion = false) => {
+const getNameParts = () => {
     const { npm_package_name, npm_package_version } = process.env;
 
-    const name = npm_package_name.replace('@', '').replace('/', '-');
+    const nameParts = npm_package_name.replace('@', '').split('/');
+    const scope = nameParts.slice(0, -1);
+    const name = nameParts.slice(-1);
+    const version = npm_package_version;
 
-    return excludeVersion ? name : `${name}-${npm_package_version}`
+    return { scope, name, version };
+};
+
+const getFullName = () => {
+    const { scope, name, version } = getNameParts();
+    return [].concat(scope, name, version).join('-');
+};
+
+const getName = () => {
+    const { scope, name, version } = getNameParts();
+    let nameParts = [];
+
+    if (!argv['exclude-scope']) {
+        nameParts = nameParts.concat(scope);
+    }
+
+    nameParts = nameParts.concat(name);
+
+    if (!argv['exclude-version']) {
+        nameParts = nameParts.concat(version);
+    }
+
+    return nameParts.join('-');
 };
 
 const mappings = getMappings(argv);
@@ -35,8 +60,8 @@ const pack = spawn('npm', ['pack']);
 pack.on('close', _ => {
     const { npm_package_name, npm_package_version } = process.env;
     const name = `${npm_package_name}-${npm_package_version}`;
-    const tarName = `${getName()}.tgz`;
-    const zipName = `${getName(argv['exclude-output-version'])}.zip`;
+    const tarName = `${getFullName()}.tgz`;
+    const zipName = `${getName()}.zip`;
 
     const zip = fs.createWriteStream(zipName);
     const progress = true;

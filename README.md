@@ -1,6 +1,6 @@
 # pack-lambda
 
-## Leverages npm's pack cmd to create a zip[ file that can be deployed to AWS Lambda
+## Leverages npm's pack cmd to create a zip file that can be deployed to AWS Lambda
 
 ### Install
 ```
@@ -15,7 +15,7 @@ Use `bundledDependencies` to include dependencies within the package.
 
 ```
 "scripts": {
-    "package": "pack-lambda -m build/: --exclude-output-version"
+    "package": "pack-lambda -m build/: --exclude-version --exclude-scope"
 }
 ...
 "dependencies": {
@@ -62,5 +62,10 @@ pack-lambda -m build/:dist/ -m conf/:config/
 
 Exclude version from output filename
 ```
-pack-lambda --exclude-output-version
+pack-lambda --exclude-version
+```
+
+Exclude npm scope from output filename. If the package name is `@company/package` then the output zip name will be `package-1.0.0.zip`.
+```
+pack-lambda --exclude-scope
 ```
